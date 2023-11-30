@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+<div>
+    <form action="/app/entregableBuscado/" method="GET">
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Buscar">
+
+    </form>
+</div>
+    {% for entregable in entregables %}
+        <h6>La tarea {{entregable.nombre}} fue entregada en la fecha: {{entregable.fecha_de_entrega}}</h6>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

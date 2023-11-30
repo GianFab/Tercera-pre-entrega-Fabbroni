@@ -26,4 +26,8 @@ class BusqProfeForm(forms.Form):
 
 class EntregableForm(forms.Form):
     nombre = forms.CharField()
+    fecha_de_entrega = forms.DateField()
     entregado = forms.BooleanField()
+
+class BusqEntregableForm(forms.Form):
+    nombre = forms.CharField()

@@ -13,7 +13,7 @@ urlpatterns = [
     path('estudiantes/', mostrar_estudiantes),
     path('estudianteBuscado/', busq_estudiante_apellido),
     path('entregable/', crear_entregable_form),
-    path('entregables/', mostrar_cursos),
-    path('entregableBuscado/', busq_curso_camada),
+    path('entregables/', mostrar_entregables),
+    path('entregableBuscado/', busq_entregable),
     path('show/', show_html),
 ]

@@ -3,7 +3,7 @@ from django.shortcuts import *
 from AppCoder.models import *
 from AppCoder.forms import *
 
-
+# CURSOS
 def mostrar_cursos(request):
     cursos = Curso.objects.all()
     contexto = {
@@ -39,7 +39,7 @@ def busq_curso_camada(request):
     }
     return render(request, "AppCoder/cursos.html", contexto)
 
-
+# PROFESORES
 def mostrar_profes(request):
     profes = Profesor.objects.all()
     contexto = {
@@ -74,7 +74,7 @@ def busq_profe_profesion(request):
     }
     return render(request, "AppCoder/profes.html", contexto)
 
-
+# ESTUDIANTES
 def mostrar_estudiantes(request):
     estudiantes = Estudiante.objects.all()
     contexto = {
@@ -108,16 +108,39 @@ def busq_estudiante_apellido(request):
     }
     return render(request, "AppCoder/estudiantes.html", contexto)
 
-
+# ENTREGABLES
+def mostrar_entregables(request):
+    entregables = Entregable.objects.all()
+    contexto = {
+        "entregables": entregables,
+        "form": BusqEntregableForm(),
+    }
+    return render(request, "AppCoder/entregables.html", contexto)
 
 def crear_entregable_form(request):
+
+    if request.method == "POST":
+        entregable_formulario = EntregableForm(request.POST)
+        if entregable_formulario.is_valid():
+            info = entregable_formulario.cleaned_data
+            entregable_crear = Entregable(nombre=info["nombre"], fecha_de_entrega=info["fecha_de_entrega"], entregado=info["entregado"])
+            entregable_crear.save()
+            return redirect("/app/entregables/")
+
     entregable_formulario = EntregableForm()
     contexto = {
         "form": entregable_formulario
     }
     return render(request, "AppCoder/crear.html", contexto)
 
-
+def busq_entregable(request):
+    nombre = request.GET["nombre"]
+    entregables = Entregable.objects.filter(nombre__icontains=nombre)
+    contexto = {
+        "entregables": entregables,
+        "form": BusqEntregableForm(),
+    }
+    return render(request, "AppCoder/entregables.html", contexto)
 
 
 def show_html(request):
