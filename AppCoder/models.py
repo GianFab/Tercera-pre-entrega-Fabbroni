@@ -14,6 +14,9 @@ class Estudiante(models.Model):
     apellido = models.CharField(max_length=30)
     email = models.EmailField()
 
+    def __str__(self):
+        return f"Estudiante: {self.nombre} {self.apellido} {self.email}"
+
 
 class Profesor(models.Model):
     nombre = models.CharField(max_length=30)
@@ -22,10 +25,13 @@ class Profesor(models.Model):
     profesion = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"Profesor: {self.nombre} {self.apellido}"
+        return f"Profesor: {self.nombre} {self.apellido} {self.email} {self.profesion}"
 
 
 class Entregable(models.Model):
     nombre = models.CharField(max_length=30)
     fecha_de_entrega = models.DateField()
     entregado = models.BooleanField()
+
+    def __str__(self):
+        return f"Profesor: {self.nombre} {self.fecha_de_entrega} {self.entregado}"
