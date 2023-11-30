@@ -27,7 +27,7 @@ def crear_curso_form(request):
     contexto = {
         "form": curso_formulario
     }
-    return render(request, "AppCoder/crear_curso.html", contexto)
+    return render(request, "AppCoder/crear.html", contexto)
 
 
 def busq_curso_camada(request):
@@ -63,7 +63,7 @@ def crear_profesor_form(request):
     contexto = {
         "form": profe_formulario
     }
-    return render(request, "AppCoder/crear_profesor.html", contexto)
+    return render(request, "AppCoder/crear.html", contexto)
 
 def busq_profe_profesion(request):
     profesion = request.GET["profesion"]
@@ -74,19 +74,48 @@ def busq_profe_profesion(request):
     }
     return render(request, "AppCoder/profes.html", contexto)
 
+
+def mostrar_estudiantes(request):
+    estudiantes = Estudiante.objects.all()
+    contexto = {
+        "estudiantes": estudiantes,
+        "form": BusqEstudianteForm(),
+    }
+    return render(request, "AppCoder/estudiantes.html", contexto)
+
 def crear_estudiante_form(request):
+
+    if request.method == "POST":
+        estudiante_formulario = EstudianteForm(request.POST)
+        if estudiante_formulario.is_valid():
+            info = estudiante_formulario.cleaned_data
+            estudiante_crear = Estudiante(nombre=info["nombre"], apellido=info["apellido"], email=info["email"])
+            estudiante_crear.save()
+            return redirect("/app/estudiantes/")
+
     estudiante_formulario = EstudianteForm()
     contexto = {
         "form": estudiante_formulario
     }
-    return render(request, "AppCoder/crear_curso.html", contexto)
+    return render(request, "AppCoder/crear.html", contexto)
+
+def busq_estudiante_apellido(request):
+    apellido = request.GET["apellido"]
+    estudiantes = Estudiante.objects.filter(apellido__icontains=apellido)
+    contexto = {
+        "estudiantes": estudiantes,
+        "form": BusqEstudianteForm(),
+    }
+    return render(request, "AppCoder/estudiantes.html", contexto)
+
+
 
 def crear_entregable_form(request):
     entregable_formulario = EntregableForm()
     contexto = {
         "form": entregable_formulario
     }
-    return render(request, "AppCoder/crear_curso.html", contexto)
+    return render(request, "AppCoder/crear.html", contexto)
 
 
 

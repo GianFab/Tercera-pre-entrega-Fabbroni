@@ -12,6 +12,9 @@ class EstudianteForm(forms.Form):
     apellido = forms.CharField()
     email = forms.EmailField()
 
+class BusqEstudianteForm(forms.Form):
+    apellido = forms.CharField()
+
 class ProfesorForm(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()

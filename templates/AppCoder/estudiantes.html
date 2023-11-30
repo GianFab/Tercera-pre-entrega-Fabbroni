@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+<div>
+    <form action="/app/estudianteBuscado/" method="GET">
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Buscar">
+
+    </form>
+</div>
+    {% for estudiante in estudiantes %}
+        <h6>{{estudiante.nombre}} {{estudiante.apellido}} posee el siguiente mail: {{estudiante.email}} </h6>
+        <hr>
+    {% endfor %}
+
+{% endblock %}
