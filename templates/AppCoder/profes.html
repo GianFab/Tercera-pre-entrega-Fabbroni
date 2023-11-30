@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+<div>
+    <form action="/app/profeBuscado/" method="GET">
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Buscar">
+
+    </form>
+</div>
+    {% for profe in profes %}
+        <h6>El profesor {{profe.nombre}} {{profe.apellido}} realiza la siguiente labor: {{profe.profesion}} </h6>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

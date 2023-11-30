@@ -18,6 +18,9 @@ class ProfesorForm(forms.Form):
     email = forms.EmailField()
     profesion = forms.CharField()
 
+class BusqProfeForm(forms.Form):
+    profesion = forms.CharField()
+
 class EntregableForm(forms.Form):
     nombre = forms.CharField()
     entregado = forms.BooleanField()

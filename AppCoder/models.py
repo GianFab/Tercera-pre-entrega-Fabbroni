@@ -15,7 +15,7 @@ class Estudiante(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return f"Estudiante: {self.nombre} {self.apellido} {self.email}"
+        return f"Estudiante: {self.nombre} {self.apellido}"
 
 
 class Profesor(models.Model):
@@ -25,7 +25,7 @@ class Profesor(models.Model):
     profesion = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"Profesor: {self.nombre} {self.apellido} {self.email} {self.profesion}"
+        return f"Profesor: {self.nombre} {self.apellido}"
 
 
 class Entregable(models.Model):

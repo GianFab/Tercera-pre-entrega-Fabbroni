@@ -3,31 +3,6 @@ from django.shortcuts import *
 from AppCoder.models import *
 from AppCoder.forms import *
 
-# def saludo_plantilla(request):
-#     contexto = {
-#         "nombre": "Gian",
-#         "edad": 23,
-#         "perros": [
-#             {
-#                 "nombre": "Berta",
-#                 "edad": 6,
-#             },
-#             {
-#                 "nombre": "Lola",
-#                 "edad": 5,
-#             },
-#             {
-#                 "nombre": "Blass",
-#                 "edad": 11,
-#             },
-#             {
-#                 "nombre": "Cleto",
-#                 "edad": 7,
-#             },
-#         ],
-#     }
-#     return render(request, "index.html", contexto)
-
 
 def mostrar_cursos(request):
     cursos = Curso.objects.all()
@@ -65,12 +40,39 @@ def busq_curso_camada(request):
     return render(request, "AppCoder/cursos.html", contexto)
 
 
+def mostrar_profes(request):
+    profes = Profesor.objects.all()
+    contexto = {
+        "profes": profes,
+        "form": BusqProfeForm(),
+    }
+    return render(request, "AppCoder/profes.html", contexto)
+
 def crear_profesor_form(request):
+
+    if request.method == "POST":
+        profe_formulario = ProfesorForm(request.POST)
+        if profe_formulario.is_valid():
+            info = profe_formulario.cleaned_data
+            profe_crear = Profesor(nombre=info["nombre"], apellido=info["apellido"], email=info["email"], profesion=info["profesion"])
+            profe_crear.save()
+            return redirect("/app/profes/")
+
+
     profe_formulario = ProfesorForm()
     contexto = {
         "form": profe_formulario
     }
-    return render(request, "AppCoder/crear_curso.html", contexto)
+    return render(request, "AppCoder/crear_profesor.html", contexto)
+
+def busq_profe_profesion(request):
+    profesion = request.GET["profesion"]
+    profes = Profesor.objects.filter(profesion__icontains=profesion)
+    contexto = {
+        "profes": profes,
+        "form": BusqProfeForm(),
+    }
+    return render(request, "AppCoder/profes.html", contexto)
 
 def crear_estudiante_form(request):
     estudiante_formulario = EstudianteForm()
